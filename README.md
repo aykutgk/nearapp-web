@@ -57,6 +57,7 @@
 - RDS and Redis setup
   - Spin up ubuntu 16.04 LTS instance (2 Core, 7GB memory, 50GB SSD)
     - sudo apt-get update
+
   - Install Mysql-Server 5.7
     - sudo apt-get install mysql-server-5.7
     - put strong root password
@@ -67,4 +68,18 @@
     - create mysql user to connect database externally
       - CREATE USER 'external'@'%' IDENTIFIED BY 'pass'
       - GRANT ALL PRIVILEGES ON db.* to 'external'@'%' WITH GRANT OPTION;
+
   - Install Redis-Server
+    - sudo apt-get install build-essential tcl
+    - cd
+    - wget http://download.redis.io/redis-stable.tar.gz
+    - tar xvzf redis-stable.tar.gz
+    - cd redis-stable
+    - make
+    - sudo make install
+    - make test
+    - follow the rest of the instructions here https://redis.io/topics/quickstart)
+
+  - Run Jnkins for auto deployments and cronjobs (periodic tasks)
+    - follow steps here https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu
+    - open port 8001 for jenkins
