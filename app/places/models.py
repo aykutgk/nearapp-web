@@ -35,6 +35,8 @@ class Place(models.Model):
     lat = models.FloatField("Latitude")
     lng = models.FloatField("Longitude")
     google_place_id = models.CharField("Google place id comes from places detail api", max_length=60)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
