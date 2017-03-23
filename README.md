@@ -66,5 +66,5 @@
     - create mysql user to be used from http services (django/python) do not use root
     - create mysql user to connect database externally
       - CREATE USER 'external'@'%' IDENTIFIED BY 'pass'
-      - GRANT ALL PRIVILEGES ON db.* to 'mysql_django_user_external'@'192.168.10.1' WITH GRANT OPTION;
+      - GRANT ALL PRIVILEGES ON db.* to 'external'@'%' WITH GRANT OPTION;
   - Install Redis-Server
