@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^onboarding/', include('onboarding.urls')),
+    url(r'^api/v1/', include('api_v1.urls')),
 ]

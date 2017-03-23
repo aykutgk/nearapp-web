@@ -11,6 +11,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'onboarding',
     'places',
+    'api_v1',
 ]
 
 MIDDLEWARE = [

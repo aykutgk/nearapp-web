@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from .models import Owner
+from onboarding.models import Owner
+from places.models import Place
+
 
 
 class OwnerSerializer(serializers.ModelSerializer):
