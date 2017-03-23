@@ -25,7 +25,7 @@ from .base import *
 SECRET_KEY = 'stfout&6=qv8n_b6o3jeno4i8emxpyc4n+_bv+^pac!5bd_6(j'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
