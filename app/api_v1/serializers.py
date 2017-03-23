@@ -5,7 +5,7 @@ from places.models import Place
 
 
 
-class OwnerSerializer(serializers.ModelSerializer):
+class OwnerCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Owner
         fields = ('id', 'email', 'phone_number', 'first_name', 'last_name', 'password')
@@ -22,3 +22,10 @@ class OwnerSerializer(serializers.ModelSerializer):
         user.save()
         #user.sms_user("Hi Aykut")
         return user
+
+
+class PlaceCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Place
+        fields = '__all__'
+        extra_kwargs = {'id': {'read_only': True}}
