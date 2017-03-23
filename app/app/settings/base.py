@@ -11,7 +11,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'onboarding',
     'places',
-    'api_v1',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -86,7 +86,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/var/log/django/debug.log',
+            'filename': '/var/log/django-debug.log',
         },
     },
     'loggers': {

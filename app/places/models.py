@@ -34,7 +34,7 @@ class Place(models.Model):
     name = models.CharField("Name of the business or place", max_length=255)
     lat = models.FloatField("Latitude")
     lng = models.FloatField("Longitude")
-    google_place_id = models.CharField("Google place id comes from places detail api", max_length=60)
+    google_place_id = models.CharField("Google place id comes from places detail api", max_length=60, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

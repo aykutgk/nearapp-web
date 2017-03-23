@@ -44,3 +44,27 @@
 - Migrations
   - initial migration --> python manage.py migrate --settings=app.settings.dev
   - after table changes -->  python manage.py makemigrations --settings=app.settings.dev
+
+# Initial set up on Google Cloud (you can get 300 free trial almost for 3 months it is free)
+- Web app set up
+  - Spin up a new ubuntu 16.04 LTS instance (1 vCPU, 2 GB memory, 10GB SSD)
+      - sudo apt-get update
+  - install required python libraries
+    - sudo apt-get install python3-pip
+    - sudo apt-get install python3.5-venv
+    - apt-get install libmysqlclient-dev
+
+- RDS and Redis setup
+  - Spin up ubuntu 16.04 LTS instance (2 Core, 7GB memory, 50GB SSD)
+    - sudo apt-get update
+  - Install Mysql-Server 5.7
+    - sudo apt-get install mysql-server-5.7
+    - put strong root password
+    - comment bind address (#bind-address = 127.0.0.1) in /etc/mysql/mysql.conf.d/mysqld.cnf
+    - sudo service mysql restart
+    - configure firewall to access rds from home
+    - create mysql user to be used from http services (django/python) do not use root
+    - create mysql user to connect database externally
+      - CREATE USER 'external'@'%' IDENTIFIED BY 'pass'
+      - GRANT ALL PRIVILEGES ON db.* to 'mysql_django_user_external'@'192.168.10.1' WITH GRANT OPTION;
+  - Install Redis-Server

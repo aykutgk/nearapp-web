@@ -57,3 +57,13 @@ GOOGLE_MAP_API_KEY = "AIzaSyD_xtnckJYoWHSq0xJms1hAkQ0Y4KylXzc"
 #AWS
 AWS_ACCESS_KEY_ID = "AKIAICVV4IVJB6ED55OA"
 AWS_SECRET_ACCESS_KEY = "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"
+
+REST_FRAMEWORK = {
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_THROTTLE_CLASSES': (
+        'rest_framework.throttling.ScopedRateThrottle',
+    ),
+    'DEFAULT_THROTTLE_RATES': {
+        'register_owner': '100/day',
+    }
+}
