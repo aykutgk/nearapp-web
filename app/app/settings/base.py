@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     'localflavor',
     'rest_framework',
     'onboarding',
+    'places',
 ]
 
 MIDDLEWARE = [
