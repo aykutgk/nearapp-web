@@ -79,6 +79,7 @@
     - sudo make install
     - make test
     - follow the rest of the instructions here https://redis.io/topics/quickstart)
+    - django/python package for redis -> http://niwinz.github.io/django-redis/latest/
 
   - Run Jnkins for auto deployments and cronjobs (periodic tasks)
     - follow steps here https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu
