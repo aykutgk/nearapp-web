@@ -36,11 +36,11 @@ ALLOWED_HOSTS = ["*"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['db_name'],
-        'USER': os.environ['db_user'],
-        'PASSWORD': os.environ['db_pass'],
-        'HOST': os.environ['db_host'],
-        'PORT': os.environ['db_port'],
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASS'],
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
     }
 }
 
@@ -51,12 +51,12 @@ DATABASES = {
 STATIC_URL = '/static/'
 
 
-#GOOGLE MAP API KEY
-GOOGLE_MAP_API_KEY = os.environ['google_map_api_key']
+#GOOGLE MAP API KEY to use places and autocomplete apis
+GOOGLE_MAP_API_KEY = os.environ['GOOGLE_MAP_API_KEY']
 
 #AWS
-AWS_ACCESS_KEY_ID = os.environ['aws_access_key_id']
-AWS_SECRET_ACCESS_KEY = os.environ['aws_secret_access_key']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
