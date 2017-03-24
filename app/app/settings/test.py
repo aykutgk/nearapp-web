@@ -61,7 +61,7 @@ CACHES = {
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.environ['STATIC_ROOT']
+STATIC_ROOT = "{0}/static".format(os.environ['STATIC_ROOT'])
 
 
 #GOOGLE MAP API KEY to use places and autocomplete apis
