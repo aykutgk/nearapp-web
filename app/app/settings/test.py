@@ -59,10 +59,7 @@ CACHES = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
-
-STATIC_ROOT = "{0}/static".format(os.environ['STATIC_ROOT'])
-
+STATIC_URL = 'https://s3.amazonaws.com/nearapp-static/static/'
 
 #GOOGLE MAP API KEY to use places and autocomplete apis
 GOOGLE_MAP_API_KEY = os.environ['GOOGLE_MAP_API_KEY']

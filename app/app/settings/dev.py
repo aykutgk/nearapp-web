@@ -60,6 +60,7 @@ CACHES = {
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = '/vagrant_data/static'
 
 #GOOGLE MAP API KEY
 GOOGLE_MAP_API_KEY = "AIzaSyD_xtnckJYoWHSq0xJms1hAkQ0Y4KylXzc"
