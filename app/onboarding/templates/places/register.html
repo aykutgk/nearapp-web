@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta %}
+<!--Meta Tags -->
+{% endblock %}
+{% block css %}
+<!--App Css -->
+<link rel="stylesheet" href="{% static "places/css/register.css" %}">
+{% endblock %}
+{% block content %}
+{% csrf_token %}
+{% verbatim %}
+<div ng-app="RegisterApp" ng-cloak ng-controller="AppCtrl as ctrl" layout-fill>
+  <div layout="row" layout-align="center" layout-fill layout-margin>
+    <form ng-submit="$event.preventDefault()" name="registerForm">
+      <div layout="column" style="width:600px;">
+        <div layout="row" layout-align="center">
+          <h3 class="md-display-1">Let's find your business</h3>
+        </div>
+        <div>
+          <md-input-container>
+            <label>Name</label>
+            <input type="text" ng-model="businessName" md-no-asterisk required>
+          </md-input-container>
+        </div>
+        <div>
+          <md-input-container>
+            <label>Category</label>
+            <md-select
+              required md-no-asterisk
+              ng-model="businessCategory"
+              md-on-open="ctrl.loadBusinessCategories()" style="min-width: 250px;" >
+              <md-option ng-value="category.value" ng-repeat="category in ctrl.businessCategories">{{category.label}}</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div>
+          <image
+            ng-src="{{selectedItemImageURL}}"
+            ng-hide="selectedItemImageURL == null">
+          </image>
+          <md-autocomplete
+            required md-no-asterisk
+            md-input-name="autocompleteField"
+            md-selected-item="selectedItem"
+            md-floating-label="Address"
+            md-no-cache="true"
+            md-item-text="item.description"
+            md-search-text="searchText"
+            md-items="item in ctrl.googleMapService.getAutoCompleteResult(searchText)"
+            md-search-text-change="query(searchText)"
+            md-selected-item-change="getMapImage(selectedItem)">
+            <md-item-template>
+              <span md-highlight-text="searchText">{{item.description}}</span>
+            </md-item-template>
+            <md-not-found>
+              No matches found.
+            </md-not-found>
+            <div
+            ng-messages="registerForm.autocompleteField.$error"
+            ng-if="registerForm.autocompleteField.$touched">
+              <div ng-message="required"><b>Address</b> is required</div>
+            </div>
+          </md-autocomplete>
+        </div>
+        <div layout="row" layout-align="center">
+          <h3 class="md-display-1">Let's create your account</h3>
+        </div>
+        <div layout="row">
+          <div flex="50">
+            <md-input-container>
+              <label>First Name</label>
+              <input type="text" ng-model="user.firstName" required md-no-asterisk />
+            </md-input-container>
+          </div>
+          <div flex="50">
+            <md-input-container>
+              <label>Last Name</label>
+              <input type="text" ng-model="user.lastName" required md-no-asterisk />
+            </md-input-container>
+          </div>
+        </div>
+        <div>
+          <md-input-container>
+            <label>Email</label>
+            <input type="email" ng-model="user.email" name="userEmailField" required md-no-asterisk/>
+            <div
+              ng-messages="registerForm.userEmailField.$error" role="alert">
+              <div ng-message="required"><b>Email</b> is required</div>
+              <div ng-message="email"><b>Email address</b> is invalid</div>
+            </div>
+          </md-input-container>
+        </div>
+        <div>
+          <md-input-container>
+            <label>Phone Number</label>
+            <input type="text"
+                   name="userPhoneNumberField"
+                   ng-model="user.phone"
+                   ng-pattern="/^[0-9]{3} [0-9]{3}-[0-9]{4}$/" required md-no-asterisk />
+             <div
+               ng-messages="registerForm.userPhoneNumberField.$error" role="alert">
+               <div ng-message="required"><b>Phone number</b> is required</div>
+               <div ng-message="pattern"><b>Phone number</b> is invalid</div>
+             </div>
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <div flex="50">
+            <md-input-container>
+              <label>Create a password</label>
+              <input type="password" name="userPasswordField" ng-model="user.password" ng-minlength="8" />
+            </md-input-container>
+          </div>
+          <div flex="50">
+            <md-input-container>
+              <label>Confirm your password</label>
+              <input type="password" name="userConfirmPasswordField" ng-model="user.confirmPassword" ng-minlength="8" />
+            </md-input-container>
+          </div>
+        </div>
+        <div layout="row" layout-align="center">
+          <div>
+            <md-button class="md-primary">
+              Clear
+            </md-button>
+          </div>
+          <div>
+            <md-button class="md-primary md-raised">
+              Save
+            </md-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endverbatim %}
+{% endblock %}
+{% block javascript %}
+<!-- App Javascript  -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{google_map_api_key}}&libraries=places"></script>
+<script type="text/javascript" src="{% static "places/js/register.js" %}"></script>
+{% endblock %}
