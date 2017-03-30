@@ -13,7 +13,7 @@ from .serializers import OwnerCreateSerializer, PlaceCreateSerializer
 logger = logging.getLogger('django')
 
 
-def Status(request):
+def api_health_check(request):
     return JsonResponse({'ok': True})
 
 
