@@ -1,5 +1,7 @@
 import logging
 
+from django.http import JsonResponse
+
 from rest_framework import generics
 from rest_framework import permissions
 
@@ -9,6 +11,12 @@ from .serializers import OwnerCreateSerializer, PlaceCreateSerializer
 
 
 logger = logging.getLogger('django')
+
+
+def Status(request):
+    return JsonResponse({'ok': True})
+
+
 
 class OwnerCreate(generics.CreateAPIView):
     throttle_scope = 'register_owner'
