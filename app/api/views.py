@@ -17,7 +17,6 @@ def Status(request):
     return JsonResponse({'ok': True})
 
 
-
 class OwnerCreate(generics.CreateAPIView):
     throttle_scope = 'register_owner'
     queryset = Owner.objects.all()
