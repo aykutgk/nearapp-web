@@ -81,6 +81,11 @@
     - follow the rest of the instructions here https://redis.io/topics/quickstart)
     - django/python package for redis -> http://niwinz.github.io/django-redis/latest/
 
-  - Run Jnkins for auto deployments and cronjobs (periodic tasks)
+- Run Jnkins for auto deployments and cronjobs (periodic tasks)
     - follow steps here https://wiki.jenkins-ci.org/display/JENKINS/Installing+Jenkins+on+Ubuntu
     - open port 8001 for jenkins
+
+- Running Gunicorn
+    - used systemctl -> created new gunicorn.service under /etc/systemctl/system
+    - permission to start/stop/status for jenkins user
+    - trigger deployment from jenkins and sudo systemctl start gunicorn
