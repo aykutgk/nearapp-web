@@ -102,3 +102,4 @@
     - make
     - sudo make install
     - export LD_LIBRARY_PATH=/usr/local/lib
+    - sudo vi /etc/environemnt and put LD_LIBRARY_PATH="/usr/local/lib"
