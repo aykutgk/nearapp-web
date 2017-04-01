@@ -24,7 +24,7 @@ class PlaceAdmin(admin.ModelAdmin):
         lat = obj.point.y
         google_statics_url = "https://maps.googleapis.com/maps/api/staticmap?"\
         "center={lon},{lat}"\
-        "&zoom=12&size=800x300&maptype=roadmap"\
+        "&zoom=16&size=800x300&maptype=roadmap"\
         "&markers=color:red%7Clabel:P%7C{lon},{lat}"\
         "&key={api_key}".format(
             lon=lon,
