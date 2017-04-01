@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ["10.128.0.2", "10.128.0.4", "test.nearapp.us"]
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'NAME': os.environ['DB_NAME'],
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASS'],

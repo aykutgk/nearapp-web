@@ -89,3 +89,16 @@
     - used systemctl -> created new gunicorn.service under /etc/systemctl/system
     - permission to start/stop/status for jenkins user
     - trigger deployment from jenkins and sudo systemctl start gunicorn
+
+- Geo Django Set up
+  - In Django settings, add 'django.contrib.gis' to INSTALLED_APPS
+  - Change mysql engine to django.contrib.gis.db.backends.mysql
+  - in models.py, use "from django.contrib.gis.db import models"
+  - Install C++ GEOS library in ubuntu
+    - wget http://download.osgeo.org/geos/geos-3.6.1.tar.bz2
+    - tar xjf geos-3.6.1.tar.bz2
+    - cd geos-3.6.1/
+    - ./configure
+    - make
+    - sudo make install
+    - export LD_LIBRARY_PATH=/usr/local/lib

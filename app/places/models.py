@@ -1,4 +1,5 @@
-from django.db import models
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import GEOSGeometry
 
 from onboarding.models import Owner
 
@@ -32,8 +33,7 @@ class Channel(models.Model):
 class Place(models.Model):
     owner = models.ForeignKey(Owner, verbose_name="Business or place owner to manege deals")
     name = models.CharField("Name of the business or place", max_length=255)
-    lon = models.FloatField("Longitude")
-    lat = models.FloatField("Latitude")
+    point = models.PointField("Longitude/Latitude on Map", default=GEOSGeometry('POINT(0 0)'))
     google_place_id = models.CharField("Google place id comes from places detail api", max_length=60, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

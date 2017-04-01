@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
         'NAME': 'db',
         'USER': 'mysql_user_external',
         'PASSWORD': '123456',
