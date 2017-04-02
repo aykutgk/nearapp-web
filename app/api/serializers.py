@@ -33,9 +33,9 @@ class PlaceCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Place
-        #fields = '__all__'
-        exclude = ('id', 'point', 'created_at', 'updated_at', 'active')
-        #extra_kwargs = {'id': {'read_only': True}}
+        fields = ('id', 'name', 'owner', 'google_place_id', 'lon', 'lat')
+        #exclude = ('point', 'created_at', 'updated_at', 'active')
+        extra_kwargs = {'id': {'read_only': True}}
 
     def create(self, validated_data):
         place = Place(
