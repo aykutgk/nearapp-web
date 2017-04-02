@@ -1,4 +1,7 @@
+from django.contrib.gis.geos import GEOSGeometry, Point
+
 from rest_framework import serializers
+from rest_framework.response import Response
 
 from onboarding.models import Owner
 from places.models import Place
@@ -25,7 +28,21 @@ class OwnerCreateSerializer(serializers.ModelSerializer):
 
 
 class PlaceCreateSerializer(serializers.ModelSerializer):
+    lon = serializers.FloatField()
+    lat = serializers.FloatField()
+
     class Meta:
         model = Place
-        fields = '__all__'
-        extra_kwargs = {'id': {'read_only': True}}
+        #fields = '__all__'
+        exclude = ('id', 'point', 'created_at', 'updated_at', 'active')
+        #extra_kwargs = {'id': {'read_only': True}}
+
+    def create(self, validated_data):
+        place = Place(
+            name = validated_data['name'],
+            google_place_id = validated_data['google_place_id'],
+            owner = validated_data['owner'],
+            point = GEOSGeometry(Point(validated_data['lon'], validated_data['lat']))
+        )
+        place.save()
+        return place

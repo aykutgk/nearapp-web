@@ -39,5 +39,13 @@ class Place(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField("Is this business or place still active?", default=True)
 
+    @property
+    def lon(self):
+        return self.point.x
+
+    @property
+    def lat(self):
+        return self.point.y
+
     def __str__(self):
         return self.name
