@@ -74,6 +74,7 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.ScopedRateThrottle',
     ),
     'DEFAULT_THROTTLE_RATES': {
-        'register_owner': '1000/day',
+        'register_owner': '50/day',
+        'register_place': '50/day',
     }
 }
