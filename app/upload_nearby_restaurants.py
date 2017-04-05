@@ -2,7 +2,7 @@ import os
 import requests
 import sys
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "app.settings.dev")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", os.environ['DJANGO_SETTINGS_MODULE'])
 import django
 django.setup()
 
