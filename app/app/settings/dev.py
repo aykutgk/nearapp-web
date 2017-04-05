@@ -35,12 +35,12 @@ ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'db',
-        'USER': 'mysql_user_external',
-        'PASSWORD': '123456',
-        'HOST': '192.168.10.10',
-        'PORT': '3306',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5789',
     }
 }
 

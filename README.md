@@ -103,3 +103,26 @@
     - sudo make install
     - export LD_LIBRARY_PATH=/usr/local/lib
     - sudo vi /etc/environemnt and put LD_LIBRARY_PATH="/usr/local/lib"
+- Switching to PostgreSQL (PostGIS) from Mysql in order to use GeoDjango Effectively
+  - first install python adapter for psycopg2 -> pip install psycopg2
+  - Change the engine in  database settings -> django.db.backends.postgresql
+  - Set up PostgreSql server (https://www.postgresql.org/docs/9.6/static/install-short.html)
+    -  wget https://ftp.postgresql.org/pub/source/v9.6.1/postgresql-9.6.1.tar.gz
+    - tar xvfz postgresql-9.6.1.tar.gz
+    - cd postgresql-9.6.1
+    - sudo apt-get install libreadline-dev (missing lib in ubuntu)
+    - ./configure
+    - make
+    - sudo make install
+    - sudo adduser postgres
+    - sudo mkdir /usr/local/pgsql/data
+    - sudo chown postgres /usr/local/pgsql/data
+    - sudo su - postgres
+    - /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
+    - /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >logfile 2>&1 &  --> this will start the databse
+    - /usr/local/pgsql/bin/createdb test
+    - /usr/local/pgsql/bin/psql test
+    - pg_ctl to start/stop/restart and status commands (https://www.postgresql.org/docs/9.1/static/app-pg-ctl.html)
+      - /usr/local/pgsql/bin/pg_ctl restart -D /usr/local/pgsql/data -l logfile
+      - /usr/local/pgsql/bin/pg_ctl status -D /usr/local/pgsql/data
+    -  vi /usr/local/pgsql/data/postgresql.conf --> update the bind_address to reach from outside network. suggested to update the port number too.
