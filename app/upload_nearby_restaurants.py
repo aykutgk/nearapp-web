@@ -71,7 +71,7 @@ if __name__ == "__main__":
         try:
             p = Place.objects.create(
                 name = place_detail['name'],
-                point = Point(place_detail['lon'], place_detail['lat'], srid=4326),
+                point = Point(place_detail['lon'], place_detail['lat']),
                 google_place_id = place_detail['place_id'],
                 owner = owner,
                 google_map_url = place_detail['url'],
