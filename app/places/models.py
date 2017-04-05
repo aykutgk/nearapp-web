@@ -33,11 +33,12 @@ class Channel(models.Model):
 class Place(models.Model):
     owner = models.ForeignKey(Owner, verbose_name="Owner")
     name = models.CharField("Name of the business or place", max_length=255)
-    point = models.PointField("Longitude/Latitude on Map", default=GEOSGeometry('POINT(0 0)'))
+    point = models.PointField("Latitude/Longitude on Map")
     google_place_id = models.CharField("Google place id", max_length=60, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField("Is this business or place still active?", default=True)
+    google_map_url = models.URLField("Google map url", default=None)
 
     @property
     def lon(self):

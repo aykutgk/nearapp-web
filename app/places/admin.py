@@ -23,26 +23,32 @@ class PlaceAdmin(admin.ModelAdmin):
         lon = obj.point.x
         lat = obj.point.y
         google_statics_url = "https://maps.googleapis.com/maps/api/staticmap?"\
-        "center={lon},{lat}"\
+        "center={lat},{lon}"\
         "&zoom=16&size=800x300&maptype=roadmap"\
-        "&markers=color:red%7Clabel:P%7C{lon},{lat}"\
+        "&markers=color:red%7Clabel:P%7C{lat},{lon}"\
         "&key={api_key}".format(
             lon=lon,
             lat=lat,
             api_key=settings.GOOGLE_MAP_API_KEY
         )
+        if not obj.google_map_url:
+            google_map_url = "https://www.google.com/maps/@{},{},zoom=16z".format(
+                obj.point.y,
+                obj.point.x
+            )
+        else:
+            google_map_url = obj.google_map_url;
         return format_html(
-                    (   '<span>Longitude: {}, Latitude: {}</span><br>'
-                        '<a href="https://www.google.com/maps?q=loc:{},{}&zoom=8" '
+                    (   '<span>Latitude: {}, Longitude: {}</span><br>'
+                        '<a href="{}" '
                         'target="_blank"><img src="{}" alt="Open google maps"><br>Click to open google maps</a>'
                     ),
-                    lon,
                     lat,
                     lon,
-                    lat,
+                    google_map_url,
                     google_statics_url,
                )
-    lon_lat.short_description = "Lon/Lat on Google Map"
+    lon_lat.short_description = "Lat/Lon on Google Map"
 
     readonly_fields = ("lon_lat","google_place_id")
 
