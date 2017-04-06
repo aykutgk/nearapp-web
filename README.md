@@ -94,7 +94,7 @@
   - In Django settings, add 'django.contrib.gis' to INSTALLED_APPS
   - Change mysql engine to django.contrib.gis.db.backends.mysql
   - in models.py, use "from django.contrib.gis.db import models"
-  - Install C++ GEOS library in ubuntu
+  - Install GEOS
     - wget http://download.osgeo.org/geos/geos-3.6.1.tar.bz2
     - tar xjf geos-3.6.1.tar.bz2
     - cd geos-3.6.1/
@@ -103,14 +103,15 @@
     - sudo make install
     - export LD_LIBRARY_PATH=/usr/local/lib
     - sudo vi /etc/environemnt and put LD_LIBRARY_PATH="/usr/local/lib"
+
 - Switching to PostgreSQL (PostGIS) from Mysql in order to use GeoDjango Effectively
   - first install python adapter for psycopg2 -> pip install psycopg2
   - Change the engine in  database settings -> django.db.backends.postgresql
-  - Set up PostgreSql server (https://www.postgresql.org/docs/9.6/static/install-short.html)
+  - Set up PostgreSql server (https://www.postgresql.org/docs/9.6/static/install-short.html) (https://wiki.postgresql.org/wiki/Compile_and_Install_from_source_code)
     -  wget https://ftp.postgresql.org/pub/source/v9.6.1/postgresql-9.6.1.tar.gz
     - tar xvfz postgresql-9.6.1.tar.gz
     - cd postgresql-9.6.1
-    - sudo apt-get install libreadline-dev (missing lib in ubuntu)
+    - sudo apt-get install build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libjson-c-dev
     - ./configure
     - make
     - sudo make install
@@ -119,10 +120,54 @@
     - sudo chown postgres /usr/local/pgsql/data
     - sudo su - postgres
     - /usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data
-    - /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >logfile 2>&1 &  --> this will start the databse
+    - Not suggested way to start --> /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >logfile 2>&1 &  --> this will start the databse
+    - Suggested way to start --> /usr/local/pgsql/bin/pg_ctl start -D /usr/local/pgsql/data -l postgreysql.log
     - /usr/local/pgsql/bin/createdb test
     - /usr/local/pgsql/bin/psql test
     - pg_ctl to start/stop/restart and status commands (https://www.postgresql.org/docs/9.1/static/app-pg-ctl.html)
       - /usr/local/pgsql/bin/pg_ctl restart -D /usr/local/pgsql/data -l logfile
       - /usr/local/pgsql/bin/pg_ctl status -D /usr/local/pgsql/data
     -  vi /usr/local/pgsql/data/postgresql.conf --> update the bind_address to reach from outside network. suggested to update the port number too.
+    - or use ssh tunel. first connect to server and then connect to server localy
+
+  - GEOS, PROJ.4, GDAL, GeoIp
+    - Pre libs
+      - sudo apt-get install binutils libproj-dev gdal-bin
+      - sudo apt-get install python-gdal libgeoip1 libgeoip-dev
+
+  - Install GEOS
+    - wget http://download.osgeo.org/geos/geos-3.6.1.tar.bz2
+    - tar xjf geos-3.6.1.tar.bz2
+    - cd geos-3.6.1/
+    - ./configure
+    - make
+    - sudo make install
+    - sudo ldconfig
+
+  - Install Proj4
+    - wget http://download.osgeo.org/proj/proj-4.9.3.tar.gz
+    - tar xzf proj-4.9.3.tar.gz
+    - wget http://download.osgeo.org/proj/proj-datumgrid-1.5.tar.gz
+    - cd proj-4.9.1/nad
+    - tar xzf  ../../proj-datumgrid-1.5.tar.gz
+    - cd ..
+    - ./configure
+    - make
+    - sudo make install
+    - sudo ldconfig
+
+  - Install GDAL (this installation will take time)
+    - wget http://download.osgeo.org/gdal/2.1.3/gdal-2.1.3.tar.gz
+    - tar xzf gdal-2.1.3.tar.gz
+    - ./configure
+    - make
+    - sudo make install
+    - sudo ldconfig
+
+  - Install Posgris
+    - wget http://download.osgeo.org/postgis/source/postgis-2.3.2.tar.gz
+    - tar xvzf postgis-2.3.2.tar.gz
+    - ./configure --with-pgconfig=/usr/local/pgsql/bin/pg_config
+    - make
+    - sudo make install
+    - sudo ldconfig
