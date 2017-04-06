@@ -183,3 +183,9 @@
         - host     db              postgres        192.168.10.1/32         password
       - restart postgressql with command below
       - /usr/local/pgsql/bin/pg_ctl restart -D /usr/local/pgsql/data -l postgreysql.log
+
+- Sample Place data use upload_nearby script
+  - first create a superuser
+  - python manage.py createsuperuser
+  - python upload_nearby_restaurants.py 40.6762531 -73.89776999999998 800
+  - 800 meters is radius

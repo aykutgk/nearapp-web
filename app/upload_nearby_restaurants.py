@@ -64,8 +64,11 @@ if __name__ == "__main__":
 
     radar_results = get_google_radar_results(lon, lat, radius)
 
-    owner = Owner.objects.get(pk=1)
-
+    try:
+        owner = Owner.objects.get(pk=1)
+    except Owner.DoesNotExist:
+        raise("Please create first super user!")
+        
     for result in radar_results:
         place_detail = get_google_place_detail(result['place_id'])
         try:
