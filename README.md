@@ -177,7 +177,7 @@
     - give a password to postgrey user --> ALTER USER postgres PASSWORD '123456';
     - update config files
       - vi /usr/local/pgsql/data/postgresql.conf
-        - listen_addresses = '*'  ('*' -> means for all)
+        - listen_addresses = '\*'
       - vi /usr/local/pgsql/data/pg_hba.conf
         - add following line at the end of the file
         - host     db              postgres        192.168.10.1/32         password
