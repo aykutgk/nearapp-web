@@ -171,3 +171,15 @@
     - make
     - sudo make install
     - sudo ldconfig
+
+  - Connected to Database
+    - /usr/local/pgsql/bin/psql
+    - give a password to postgrey user --> ALTER USER postgres PASSWORD '123456';
+    - update config files
+      - vi /usr/local/pgsql/data/postgresql.conf
+        - listen_addresses = '*'  ('*' -> means for all)
+      - vi /usr/local/pgsql/data/pg_hba.conf
+        - add following line at the end of the file
+        - host     db              postgres        192.168.10.1/32         password
+      - restart postgressql with command below
+      - /usr/local/pgsql/bin/pg_ctl restart -D /usr/local/pgsql/data -l postgreysql.log
