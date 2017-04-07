@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ["10.128.0.2", "10.128.0.4", "test.nearapp.us"]
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': os.environ['DB_NAME'],
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASS'],
@@ -63,6 +63,7 @@ STATIC_URL = 'https://s3.amazonaws.com/nearapp-static/static/'
 
 #GOOGLE MAP API KEY to use places and autocomplete apis
 GOOGLE_MAP_API_KEY = os.environ['GOOGLE_MAP_API_KEY']
+GOOGLE_MAP_API_KEY_INTERNAL = os.environ['GOOGLE_MAP_API_KEY_INTERNAL']
 
 #AWS
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
@@ -70,11 +71,14 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_THROTTLE_CLASSES': (
         'rest_framework.throttling.ScopedRateThrottle',
     ),
     'DEFAULT_THROTTLE_RATES': {
-        'register_owner': '50/day',
-        'register_place': '50/day',
-    }
+        'owner_create': '50/day',
+        'place_create': '50/day',
+        'nearby_place_create': '100/day',
+        'nearby_place_list': '1000/day',
+    },
 }

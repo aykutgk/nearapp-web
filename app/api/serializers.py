@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.gis.geos import GEOSGeometry, Point
 
 from rest_framework import serializers
@@ -6,6 +8,8 @@ from rest_framework.response import Response
 from onboarding.models import Owner
 from places.models import Place
 
+
+logger = logging.getLogger('django')
 
 
 class OwnerCreateSerializer(serializers.ModelSerializer):
@@ -33,7 +37,7 @@ class PlaceCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Place
-        fields = ('id', 'name', 'owner', 'google_place_id', 'lon', 'lat')
+        fields = ('id', 'name', 'owner', 'google_place_id', 'lon', 'lat', 'google_map_url')
         #exclude = ('point', 'created_at', 'updated_at', 'active')
         extra_kwargs = {'id': {'read_only': True}}
 
@@ -46,3 +50,23 @@ class PlaceCreateSerializer(serializers.ModelSerializer):
         )
         place.save()
         return place
+
+
+class NearbyPlaceCreateSerializer(serializers.Serializer):
+    lat = serializers.FloatField()
+    lon = serializers.FloatField()
+    radius = serializers.IntegerField(min_value=200, max_value=800, default=800)
+
+    def save(self):
+        lat = self.validated_data['lat']
+        lon = self.validated_data['lon']
+        radius = self.validated_data['radius']
+        Place.save_nearby_places_from_google_place_api(lat,lon,radius)
+
+
+class NearbyPlaceListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Place
+        fields = ('id', 'name', 'lon', 'lat', 'google_map_url')
+        #exclude = ('point', 'created_at', 'updated_at', 'active')
+        extra_kwargs = {'id': {'read_only': True}}

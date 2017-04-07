@@ -78,6 +78,8 @@
     - make
     - sudo make install
     - make test
+    - comment out bind address to be reached from all ip address
+    - turn off protected mode for same reason
     - follow the rest of the instructions here https://redis.io/topics/quickstart)
     - django/python package for redis -> http://niwinz.github.io/django-redis/latest/
 
@@ -127,7 +129,7 @@
     - pg_ctl to start/stop/restart and status commands (https://www.postgresql.org/docs/9.1/static/app-pg-ctl.html)
       - /usr/local/pgsql/bin/pg_ctl restart -D /usr/local/pgsql/data -l logfile
       - /usr/local/pgsql/bin/pg_ctl status -D /usr/local/pgsql/data
-    -  vi /usr/local/pgsql/data/postgresql.conf --> update the bind_address to reach from outside network. suggested to update the port number too.
+    -  vi /usr/local/pgsql/data/postgresql.conf --> update the listen_addresses to reach from outside network. suggested to update the port number too.
     - or use ssh tunel. first connect to server and then connect to server localy
 
   - GEOS, PROJ.4, GDAL, GeoIp
@@ -142,7 +144,6 @@
     - ./configure
     - make
     - sudo make install
-    - sudo ldconfig
 
   - Install Proj4
     - wget http://download.osgeo.org/proj/proj-4.9.3.tar.gz
@@ -154,7 +155,6 @@
     - ./configure
     - make
     - sudo make install
-    - sudo ldconfig
 
   - Install GDAL (this installation will take time)
     - wget http://download.osgeo.org/gdal/2.1.3/gdal-2.1.3.tar.gz
@@ -162,15 +162,15 @@
     - ./configure
     - make
     - sudo make install
-    - sudo ldconfig
 
   - Install Posgris
+    - http://postgis.net/docs/postgis_installation.html#install_short_version
     - wget http://download.osgeo.org/postgis/source/postgis-2.3.2.tar.gz
     - tar xvzf postgis-2.3.2.tar.gz
     - ./configure --with-pgconfig=/usr/local/pgsql/bin/pg_config
     - make
     - sudo make install
-    - sudo ldconfig
+    - sudo ldconfig   --> this is required at the end
 
   - Connected to Database
     - /usr/local/pgsql/bin/psql
