@@ -65,8 +65,9 @@ class NearbyPlaceCreateSerializer(serializers.Serializer):
 
 
 class NearbyPlaceListSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Place
-        fields = ('id', 'name', 'lon', 'lat', 'google_map_url')
+        fields = ('id', 'name', 'lon', 'lat', 'distance', 'google_map_url')
         #exclude = ('point', 'created_at', 'updated_at', 'active')
         extra_kwargs = {'id': {'read_only': True}}

@@ -3,6 +3,7 @@ import logging
 from django.http import JsonResponse
 from django.contrib.gis.geos import GEOSGeometry, Point
 from django.contrib.gis.measure import D
+from django.contrib.gis.db.models.functions import Distance
 
 from places.models import Place
 
@@ -68,17 +69,26 @@ class NearbyPlaceList(generics.ListAPIView):
     current_lon = None
     radius = 800
 
+    def get_queryset(self):
+        point = Point(self.current_lon, self.current_lat, srid=4326)
+        distance = Distance('point', point, spheroid=True)
+        queryset = Place.objects.annotate(distance=distance)
+        return queryset
+
     def filter_queryset(self, queryset):
         queryset = self.get_queryset()
 
         if self.current_lat and self.current_lon:
+            point = Point(self.current_lon, self.current_lat, srid=4326)
             queryset = queryset.filter(point__isvalid=True)
             queryset = queryset.filter(
                 point__distance_lte=(
-                    Point(self.current_lon, self.current_lat, srid=4326),
+                    point,
                     D(m=self.radius)
                 )
-            )
+            ).order_by('distance', 'name')
+
+            #.annotate(distance=distance)
 
         return queryset
 

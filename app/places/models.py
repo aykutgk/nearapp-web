@@ -46,6 +46,10 @@ class Place(models.Model):
     active = models.BooleanField("Is this business or place still active?", default=True)
     google_map_url = models.URLField("Google map url", blank=True, null=True, default=None)
 
+    def __init__(self, *args, **kwargs):
+        super(Place, self).__init__(*args, **kwargs)
+        self._distance = 0
+
     @property
     def lon(self):
         return self.point.x
@@ -53,6 +57,14 @@ class Place(models.Model):
     @property
     def lat(self):
         return self.point.y
+
+    @property
+    def distance(self):
+        return self._distance
+
+    @distance.setter
+    def distance(self, value):
+        self._distance = value.m
 
     def __get_google_radar_results(lat, lon, radius, google_api_key):
         google_radar_endpoint = "https://maps.googleapis.com/maps/api/place/"\
