@@ -76,10 +76,10 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.ScopedRateThrottle',
     ),
     'DEFAULT_THROTTLE_RATES': {
-        'owner_create': '50/day',
-        'place_create': '50/day',
-        'nearby_place_create': '100/day',
-        'nearby_place_list': '1000/day',
+        'owner_create': '5000/day',
+        'place_create': '5000/day',
+        'nearby_place_create': '10000/day',
+        'nearby_place_list': '100000/day',
     },
 }
 
