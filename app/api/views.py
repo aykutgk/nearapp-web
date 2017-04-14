@@ -87,9 +87,6 @@ class NearbyPlaceList(generics.ListAPIView):
                     D(m=self.radius)
                 )
             ).order_by('distance', 'name')
-
-            #.annotate(distance=distance)
-
         return queryset
 
     def list(self, request):
