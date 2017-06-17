@@ -7,6 +7,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'localflavor',
     'rest_framework',
     'onboarding',
@@ -76,27 +77,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-#Logging
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/django/debug.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
 
 #Auth Custom User
 AUTH_USER_MODEL = 'onboarding.Owner'

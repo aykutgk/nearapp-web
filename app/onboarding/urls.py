@@ -1,9 +1,7 @@
 from django.conf.urls import url
+from . import views
 
-
-
-app_name = "onboarding"
 
 urlpatterns = [
-
+    url(r'^', views.registerTemplate.as_view(), name="index"),
 ]

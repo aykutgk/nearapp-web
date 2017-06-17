@@ -35,19 +35,19 @@ ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'db',
-        'USER': 'mysql_user_external',
+        'USER': 'postgres',
         'PASSWORD': '123456',
         'HOST': '192.168.10.10',
-        'PORT': '3306',
+        'PORT': '5432',
     }
 }
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION": "redis://192.168.10.10:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -60,20 +60,47 @@ CACHES = {
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = '/vagrant_data/static'
 
 #GOOGLE MAP API KEY
-GOOGLE_MAP_API_KEY = "AIzaSyD_xtnckJYoWHSq0xJms1hAkQ0Y4KylXzc"
+GOOGLE_MAP_API_KEY = "AIzaSyBpipxLAeJ0Kp_AMberNgzShneoXd0V-Dg"
+GOOGLE_MAP_API_KEY_INTERNAL = "AIzaSyBpipxLAeJ0Kp_AMberNgzShneoXd0V-Dg"
 
 #AWS
-AWS_ACCESS_KEY_ID = "AKIAICVV4IVJB6ED55OA"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
 REST_FRAMEWORK = {
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_THROTTLE_CLASSES': (
         'rest_framework.throttling.ScopedRateThrottle',
     ),
     'DEFAULT_THROTTLE_RATES': {
-        'register_owner': '100/day',
-    }
+        'owner_create': '1000/day',
+        'place_create': '1000/day',
+        'nearby_place_create': '1000/day',
+        'nearby_place_list': '1000/day',
+    },
+}
+
+
+#Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/django/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
 }
