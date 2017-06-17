@@ -45,7 +45,7 @@
   - initial migration --> python manage.py migrate --settings=app.settings.dev
   - after table changes -->  python manage.py makemigrations --settings=app.settings.dev
 
-# Initial set up on Google Cloud (you can get $300 free trial almost for 3 months it is free)
+# Initial set up on Google Cloud
 - Web app set up
   - Spin up a new ubuntu 16.04 LTS instance (1 vCPU, 2 GB memory, 10GB SSD)
       - sudo apt-get update
